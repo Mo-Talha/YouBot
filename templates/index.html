@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="youbot.app">
+    <head>
+        <meta charset="UTF-8">
+        <title>YouBot at NHacks</title>
+        <script type="text/javascript" src="/static/javascripts/dependencies/angular.min.js"></script>
+        <script type="text/javascript" src="/static/javascripts/dependencies/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="/static/javascripts/dependencies/ng-file-upload.min.js"></script>
+        <script type="text/javascript" src="/static/javascripts/dependencies/ng-file-upload-shim.min.js"></script>
+        <script type="text/javascript" src="/static/javascripts/CoreServices.js"></script>
+        <script type="text/javascript" src="/static/javascripts/CoreRoutes.js"></script>
+        <script type="text/javascript" src="/static/javascripts/CoreController.js"></script>
+        <script type="text/javascript" src="/static/javascripts/CoreModule.js"></script>
+        <link rel="stylesheet" href="/static/stylesheets/styles.css">
+        <base href="/">
+    </head>
+    <body ng-controller="coreController">
+        <div ng-cloak ui-view>
+        </div>
+    </body>
+</html>
