@@ -1,13 +1,12 @@
 angular.module('core.controller', [])
-    .controller('coreController', ['$scope', '$state', 'coreServices',
-        function ($scope, $state, coreServices) {
+    .controller('coreController', ['$scope', 'Upload', '$timeout', 'coreServices',
+        function ($scope, Upload, $timeout, coreServices) {
 
-            $scope.uploadFiles = function(files, errFiles) {
+            $scope.uploadFiles = function(files) {
                 $scope.files = files;
-                $scope.errFiles = errFiles;
                 angular.forEach(files, function(file) {
                     file.upload = Upload.upload({
-                        url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+                        url: '/process_image',
                         data: {file: file}
                     });
 
@@ -18,8 +17,6 @@ angular.module('core.controller', [])
                     }, function (response) {
                         if (response.status > 0)
                             $scope.errorMsg = response.status + ': ' + response.data;
-                    }, function (evt) {
-                        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                     });
                 });
             }

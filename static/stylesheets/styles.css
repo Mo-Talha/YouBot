@@ -24,32 +24,20 @@ a {
 }
 
 .fileUpload {
-  /*
-  &:before, &:after {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    @include scallop($formBgColor);
-  }
-  &:after {
-    top: auto;
-    bottom: -20px;
-    background-position: 0 -15px;
-  }*/
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   background-color: #EEF2F6;
   width: 300px;
   padding: 30px;
+  border: none;
 }
+
 .fileUpload h4 {
   font-size: 18px;
   font-weight: normal;
   margin: 20px 0 5px 0;
   padding: 0;
 }
+
 .fileUpload progress {
   appearance: none;
   border: 0;
@@ -59,6 +47,7 @@ a {
   background-color: #ccc;
   border-radius: 10px;
 }
+
 .fileUpload progress::-moz-progress-bar {
   background-color: #51ADED;
   border-radius: 10px;
@@ -67,33 +56,20 @@ a {
   background-color: #ccc;
   border-radius: 10px;
 }
+
 .fileUpload progress::-webkit-progress-value {
   position: relative;
   background-color: #51ADED;
   border-radius: 10px;
 }
+
 .fileUpload p {
   font-size: 80%;
   padding: 0;
   margin: 0;
   text-align: center;
 }
-.fileUpload .fileElem {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 300px;
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  z-index: 1;
-  height: 50px;
-  opacity: 0;
-  cursor: pointer;
-}
-.fileUpload .fileElem:focus {
-  outline: none;
-}
+
 .fileUpload .fileSelect {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -109,8 +85,14 @@ a {
   position: relative;
   font-size: 20px;
   line-height: 50px;
+  border: none;
   color: white;
 }
+
+.fileUpload .fileSelect:hover {
+  cursor: pointer;
+}
+
 .fileUpload .fileSelect:before {
   font-family: Entypo;
   content: '\E711';
