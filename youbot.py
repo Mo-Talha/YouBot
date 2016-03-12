@@ -16,6 +16,7 @@ searchParameters = []
 for i in new_d:
     searchParameters.append(i)
 
-print(searchParameters)
+print("Searching for parameters: ", searchParameters)
 
-youbotTwitter = YouBotStreamListener()
+youbotTwitter = YouBotTwitter.YouBotStreamListener(searchParameters)
+youbotTwitter.main()

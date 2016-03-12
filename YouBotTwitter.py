@@ -5,15 +5,17 @@ import tweepy
 
 class YouBotStreamListener(tweepy.StreamListener):
 
-    status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
+    searchParameters = []
+
+    _status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
 
     def __init__(self, search_parameters):
-        super().__init__(self)
         self.searchParameters = search_parameters
+        super().__init__(self)
 
     def on_status(self, status):
         try:
-            text = self.status_wrapper.fill(status.text)
+            text = self._status_wrapper.fill(status.text)
             if not status.retweeted and 'RT @' not in text and text[0] != "@":
                 text = text.replace('@', '')
                 print(text)
@@ -30,8 +32,7 @@ class YouBotStreamListener(tweepy.StreamListener):
     def on_timeout(self):
         print('Application has timed out.')
 
-    @staticmethod
-    def main():
+    def main(self):
         consumer_key = "oLT41c1FVjGXrCuVEXrDtZ3vd"
         consumer_secret = "ftY2n8uhzLC7eX2IdsCi9WwSKDoiqL7LPy00S33g8YTVXTZKG8"
         access_token = "708674786805813248-j6INo0dAJthGhIBs9eCFZw1DCCxY8vb"
@@ -40,6 +41,6 @@ class YouBotStreamListener(tweepy.StreamListener):
         auth = tweepy.auth.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
 
-        stream = tweepy.Stream(auth, YouBotStreamListener(), timeout=None)
+        stream = tweepy.Stream(auth, self, timeout=None)
 
-        stream.filter(track=searchParameters)
+        stream.filter(track=self.searchParameters)
