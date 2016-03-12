@@ -1,14 +1,14 @@
 from clarifai.client import ClarifaiApi
-import YouBotTwitter
+from YouBotTwitter import YouBotStreamListener
 
 clarifai_api = ClarifaiApi()  # assumes environment variables are set.
 name = input("Enter the image url: ")
 result = clarifai_api.tag_image_urls(name)
 
-tags= result["results"][0]["result"]["tag"]["classes"]
-probs= result["results"][0]["result"]["tag"]["probs"]
+tags = result["results"][0]["result"]["tag"]["classes"]
+probs = result["results"][0]["result"]["tag"]["probs"]
 
-dictionary = dict(zip(tags,probs))
+dictionary = dict(zip(tags, probs))
 
 new_d = {k:dictionary[k] for k in tags if dictionary[k]>0.85}
 
@@ -18,5 +18,7 @@ for i in new_d:
 
 print("Searching for parameters: ", searchParameters)
 
-youbotTwitter = YouBotTwitter.YouBotStreamListener(searchParameters)
-youbotTwitter.main()
+try:
+    YouBotStreamListener(searchParameters).main()
+except:
+    pass

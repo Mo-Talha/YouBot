@@ -1,6 +1,5 @@
-from textwrap import TextWrapper
-
 import tweepy
+from textwrap import TextWrapper
 
 
 class YouBotStreamListener(tweepy.StreamListener):
@@ -10,8 +9,8 @@ class YouBotStreamListener(tweepy.StreamListener):
     _status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
 
     def __init__(self, search_parameters):
+        super().__init__()
         self.searchParameters = search_parameters
-        super().__init__(self)
 
     def on_status(self, status):
         try:
@@ -26,13 +25,13 @@ class YouBotStreamListener(tweepy.StreamListener):
 
     def on_error(self, status_code):
         print('An error has occured! Status code = %s' % status_code)
-        #Keep stream alive
         return True
 
     def on_timeout(self):
         print('Application has timed out.')
 
     def main(self):
+
         consumer_key = "oLT41c1FVjGXrCuVEXrDtZ3vd"
         consumer_secret = "ftY2n8uhzLC7eX2IdsCi9WwSKDoiqL7LPy00S33g8YTVXTZKG8"
         access_token = "708674786805813248-j6INo0dAJthGhIBs9eCFZw1DCCxY8vb"
