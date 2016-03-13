@@ -1,8 +1,5 @@
 from random import choice
-from YouBotTwitter import textfile
 import sys
-
-text = textfile
 
 def generateModel(text, order):
     model = {}
@@ -33,13 +30,12 @@ def generateText(text, order, length):
         newCharacter = getNextCharacter(model, currentFragment)
         output += newCharacter
         currentFragment = currentFragment[1:] + newCharacter
-    print()
+    print("========================================================================")
     print (output)
     print()
 
 def remove_non_ascii_1(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
 
-
-if __name__ == "__main__":
+def main(text):
     generateText(remove_non_ascii_1(text), int(sys.argv[1]), int(sys.argv[2]))
