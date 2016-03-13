@@ -25,7 +25,8 @@ print("Searching for parameters: ", searchParameters)
 streamer = YouBotStreamListener(searchParameters[0:2])
 
 try:
-    streamer.main()
+    streamer.main(name)
+
 except:
     streamer.print_parsed()
     pass

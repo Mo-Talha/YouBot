@@ -9,6 +9,8 @@ class YouBotStreamListener(tweepy.StreamListener):
 
     totalText = ""
 
+    numberOfTweets = 0
+
     _status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
 
     def __init__(self, search_parameters):
@@ -22,6 +24,10 @@ class YouBotStreamListener(tweepy.StreamListener):
                 text = text.replace('@', '')
                 print(text)
                 self.totalText += text
+                self.numberOfTweets += 1
+                if self.numberOfTweets >= 15:
+                    self.numberOfTweets = 0
+                    self.print_parsed()
 
         except:
             pass
@@ -33,18 +39,33 @@ class YouBotStreamListener(tweepy.StreamListener):
     def on_timeout(self):
         print('Application has timed out.')
 
-    def main(self):
+    def main(self, name):
 
-        consumer_key = "oLT41c1FVjGXrCuVEXrDtZ3vd"
-        consumer_secret = "ftY2n8uhzLC7eX2IdsCi9WwSKDoiqL7LPy00S33g8YTVXTZKG8"
-        access_token = "708674786805813248-j6INo0dAJthGhIBs9eCFZw1DCCxY8vb"
-        access_token_secret = "tmGwqGyvKCdoZfCjgTOyuVEORyygdiD7aoJIcjpJNsKq1"
+        consumer_key = "lPLCslO8xPQXstH0r0BD4BFNA"
+        consumer_secret = "74FUgxGLFSN0goq2lxNqoEeWX4TzXTU7R1vpPmVHfRLd6NLwVK"
+        access_token = "709039187069165568-rEDLr7ezG3hrHI1Qzi53LZOjt2yjULg"
+        access_token_secret = "Pux8Y8rHCXYXobavYdNvmIBpQjBPzfZZ1xC4cdHat2jJz"
 
         auth = tweepy.auth.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
+        self.auth = auth
+        self.name = name
+
+        '''timeline = tweepy.API(self.auth).user_timeline(count=300)
+
+        print("Found: %d" % (len(timeline)))
+        print("Removing...")
+
+        # Delete tweets one by one
+        for t in timeline:
+            tweepy.API(self.auth).destroy_status(t.id)
+        '''
 
         stream = tweepy.Stream(auth, self, timeout=None)
         stream.filter(track=self.searchParameters)
 
     def print_parsed(self):
-        lyricize.main(self.totalText)
+        api = tweepy.API(self.auth)
+        api.update_status(lyricize.main(self.totalText) + self.name)
+
+
