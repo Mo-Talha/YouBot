@@ -1,10 +1,12 @@
 import tweepy
 from textwrap import TextWrapper
 
-
+global textfile
+textfile = ""
 class YouBotStreamListener(tweepy.StreamListener):
 
     searchParameters = []
+
 
     _status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
 
@@ -18,7 +20,7 @@ class YouBotStreamListener(tweepy.StreamListener):
             if not status.retweeted and 'RT @' not in text and text[0] != "@":
                 text = text.replace('@', '')
                 print(text)
-                print()
+                textfile += text
 
         except:
             pass
