@@ -1,5 +1,7 @@
 from random import choice
 import sys
+import language_check
+tool = language_check.LanguageTool('en-UK')
 
 def generateModel(text, order):
     model = {}
@@ -14,7 +16,6 @@ def generateModel(text, order):
             model[fragment][next_letter] += 1
     return model
 
-
 def getNextCharacter(model, fragment):
     letters = []
     for letter in model[fragment].keys():
@@ -25,16 +26,20 @@ def getNextCharacter(model, fragment):
 def generateText(text, order, length):
     model = generateModel(text, order)
     currentFragment = text[0:order]
-    output = ""
+    raw = ""
     for i in range(0, length-order):
         newCharacter = getNextCharacter(model, currentFragment)
-        output += newCharacter
+        raw += newCharacter
         currentFragment = currentFragment[1:] + newCharacter
-    print()
-    print("Parsed output:", output)
+    matches = tool.check(raw)
+    output = language_check.correct(raw, matches)
+    print (raw)
+    print ("\n")
+    print (output)
 
 def remove_non_ascii_1(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
 
-def main(text):
+if __name__ == "__main__":
     generateText(remove_non_ascii_1(text), 4, 80)
+
