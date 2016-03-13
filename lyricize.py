@@ -30,12 +30,11 @@ def generateText(text, order, length):
         newCharacter = getNextCharacter(model, currentFragment)
         output += newCharacter
         currentFragment = currentFragment[1:] + newCharacter
-    print("========================================================================")
-    print (output)
     print()
+    print("Parsed output:", output)
 
 def remove_non_ascii_1(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
 
 def main(text):
-    generateText(remove_non_ascii_1(text), int(sys.argv[1]), int(sys.argv[2]))
+    generateText(remove_non_ascii_1(text), 4, 80)

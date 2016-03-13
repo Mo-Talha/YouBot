@@ -2,13 +2,12 @@ import tweepy
 from textwrap import TextWrapper
 import lyricize
 
-global totalText
-
 
 class YouBotStreamListener(tweepy.StreamListener):
 
     searchParameters = []
 
+    totalText = ""
 
     _status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
 
@@ -22,7 +21,7 @@ class YouBotStreamListener(tweepy.StreamListener):
             if not status.retweeted and 'RT @' not in text and text[0] != "@":
                 text = text.replace('@', '')
                 print(text)
-                totalText += text
+                self.totalText += text
 
         except:
             pass
@@ -45,8 +44,7 @@ class YouBotStreamListener(tweepy.StreamListener):
         auth.set_access_token(access_token, access_token_secret)
 
         stream = tweepy.Stream(auth, self, timeout=None)
+        stream.filter(track=self.searchParameters)
 
-        try:
-            stream.filter(track=self.searchParameters)
-        except:
-            lyricize.main(totalText)
+    def print_parsed(self):
+        lyricize.main(self.totalText)
