@@ -7,8 +7,8 @@ Assuming Ubuntu or other debian based linux.
 Install Python 3+.
 
 Run script
-'''bash
+```bash
 python YouBot.py
-'''
+```
 
 
