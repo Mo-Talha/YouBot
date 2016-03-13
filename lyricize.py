@@ -33,8 +33,7 @@ def generateText(text, order, length):
         currentFragment = currentFragment[1:] + newCharacter
     matches = tool.check(raw)
     output = language_check.correct(raw, matches)
-    print()
-+   print("Parsed output:", output)
+    print("Parsed output:", output)
 
 def remove_non_ascii_1(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
